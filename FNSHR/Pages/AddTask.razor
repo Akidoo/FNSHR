@@ -1,0 +1,49 @@
+﻿@page "/AddTask"
+@using FNSHR.Models
+
+
+<div class="background-grad p-5 m-5">
+    <div class="alert alert-primary" role="alert">
+        <h3 class="text-center">Add Task</h3>
+
+        </div>
+
+<EditForm Model="@newTask" OnValidSubmit="SubmitForm">
+    <label>Task Name</label>
+    <InputText @bind-Value="newTask.Name"/>
+    <br />
+    <br />
+    <label>Deadline</label>
+    <InputText @bind-Value="newTask.Deadline" />
+    <br />
+    <br />
+    <label>Number of Points</label>
+    <InputNumber @bind-Value="newTask.pledgedPoints" />
+    <br />
+    <br />
+        <button class="btn btn-primary" type="submit">Submit</button>
+
+</EditForm>
+
+</div>
+
+<style type="text/css">
+
+    .background-grad {
+        background-color: #8BC6EC;
+        background-image: linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%);
+    }
+</style>
+
+
+@inject Data.AppDbContext dbContext
+@code {
+    public toDo newTask = new toDo();
+
+    private async Task SubmitForm()
+    {
+        dbContext.Tasks.Add(newTask);
+        await dbContext.SaveChangesAsync();
+    }
+
+}
