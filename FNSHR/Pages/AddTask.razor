@@ -9,19 +9,37 @@
         </div>
 
 <EditForm Model="@newTask" OnValidSubmit="SubmitForm">
+    <DataAnnotationsValidator />
+
     <label>Task Name</label>
     <InputText @bind-Value="newTask.Name"/>
+    <ValidationMessage For="@(()=> newTask.Name)"/>
     <br />
     <br />
     <label>Deadline</label>
     <InputText @bind-Value="newTask.Deadline" />
+    <ValidationMessage For="@(()=> newTask.Deadline)" />
     <br />
     <br />
     <label>Number of Points</label>
     <InputNumber @bind-Value="newTask.pledgedPoints" />
+    <ValidationMessage For="@(()=> newTask.pledgedPoints)" />
+
     <br />
     <br />
         <button class="btn btn-primary" type="submit">Submit</button>
+        <br />
+        <br />
+
+        @if(saved)
+        {
+            <p>Task added successfully!</p>
+        }
+
+        @if(error)
+        {
+            <p>Something went wrong - please check that every field has been entered correctly.</p>
+        }
 
 </EditForm>
 
@@ -40,10 +58,24 @@
 @code {
     public toDo newTask = new toDo();
 
+    public bool saved = false;
+    public bool error = false;
+
     private async Task SubmitForm()
     {
-        dbContext.Tasks.Add(newTask);
-        await dbContext.SaveChangesAsync();
+        saved = false;
+        error = false;
+        try
+        {
+            dbContext.Tasks.Add(newTask);
+            await dbContext.SaveChangesAsync();
+            saved = true;
+        }
+        catch (Exception)
+        {
+            error = true;
+            throw;
+        }
     }
 
 }
