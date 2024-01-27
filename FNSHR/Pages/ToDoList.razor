@@ -10,14 +10,13 @@
     </div>
 
     <div class="d-grid gap-2">
-        <input class="form-control form-control.lg" type="text" @bind="newTask" />
         <button class="btn btn-primary" @onclick="@(()=>_nav.NavigateTo("/AddTask"))">Add Task</button>
     </div>
 
-    <hr />
+    <br />
 
     <ol class="list-group">
-        @foreach (string task in toDoList)
+        @foreach (string task in toDoList) 
         {
             <li class="list-group-item">@task <button class="btn btn-primary btn-sm float-end" @onclick="(() => completeTask(task))">Mark as complete</button></li>
         }
@@ -34,7 +33,7 @@
 </style>
 @code {
 
-    List<string> toDoList = new() { "empty list..." };
+    List<string> toDoList = new() { "" };
     string newTask = "";
 
     void addTask()

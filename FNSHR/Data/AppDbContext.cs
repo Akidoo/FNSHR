@@ -9,7 +9,7 @@ namespace FNSHR.Data
     {
         protected readonly IConfiguration Configuration;
 
-        public AppDbContext(IConfiguration configuration) //sets up class before methods can be used
+        public AppDbContext(IConfiguration configuration)
         {
             Configuration = configuration;
         }
