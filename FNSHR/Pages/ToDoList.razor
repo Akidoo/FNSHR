@@ -23,11 +23,27 @@
         }
     </ol>
 
-    <div class="d-grid gap-2">
+    <div class="d-grid gap-2 text-center">
         <button class="btn btn-primary" @onclick="(() => selectionSort(toDoList))">Sort Tasks</button>
+       
     </div>
-</div>
+   
+     <br />
+        <br />
 
+    <SearchBar Items="filteredToDoList" OnSearch="updateFilteredTasks"></SearchBar>
+    <br />
+    <ol class="list-group">
+        @foreach (var filteredTask in filteredToDoList)
+        {
+            <li class="list-group-item">
+                @filteredTask.Name - @filteredTask.Deadline
+                
+            </li>
+        }
+    </ol>
+</div>
+    
 <style type="text/css">
     .background-grad {
         background-color: #8BC6EC;
@@ -42,10 +58,12 @@
 
 @code {
     List<toDo> toDoList = new List<toDo>();
+    List<toDo> filteredToDoList = new List<toDo>();
 
     protected override async Task OnInitializedAsync()
     {
         toDoList = await toDoService.GetAllToDo();
+        filteredToDoList = filteredToDoList;
     }
 
     void completeTask(toDo completedTask)
@@ -70,6 +88,18 @@
             toDo temp = a[smallestIndex];
             a[smallestIndex] = a[currentIndex];
             a[currentIndex] = temp;
+        }
+    }
+
+    void updateFilteredTasks(string searchTerm)
+    {
+        if (string.IsNullOrEmpty(searchTerm))
+        {
+            filteredToDoList = filteredToDoList;
+        }
+        else
+        {
+            filteredToDoList = toDoList.Where(task => task.Name.Contains(searchTerm, StringComparison.OrdinalIgnoreCase)).ToList();
         }
     }
 }
