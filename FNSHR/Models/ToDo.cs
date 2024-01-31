@@ -1,13 +1,11 @@
 ﻿
-using Microsoft.EntityFrameworkCore;
+using System;
 using System.ComponentModel.DataAnnotations;
-using System.Runtime.CompilerServices;
 
 namespace FNSHR.Models
 {
-    public class toDo
+    public class toDo : IComparable
     {
-        
         public int Id { get; set; }
 
         [Required]
@@ -18,7 +16,15 @@ namespace FNSHR.Models
 
         [Required]
         public int pledgedPoints { get; set; }
-    }
 
-   
+        public int CompareTo(object obj)
+        {
+            if (obj is toDo task)
+            {
+                return String.Compare(this.Name, task.Name, StringComparison.Ordinal);
+            }
+            throw new ArgumentException("Object is not a Task");
+        }
+    }
 }
+

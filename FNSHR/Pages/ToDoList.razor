@@ -1,54 +1,75 @@
-﻿@inject NavigationManager _nav
+﻿@page "/"
 
-@page "/"
-
+@inject NavigationManager _nav
 
 <div class="background-grad p-5 m-5">
     <div class="alert alert-primary" role="alert">
         <h3 class="text-center">FNSHR</h3>
-
     </div>
 
     <div class="d-grid gap-2">
-        <button class="btn btn-primary" @onclick="@(()=>_nav.NavigateTo("/AddTask"))">Add Task</button>
+        <button class="btn btn-primary" @onclick="@(() => _nav.NavigateTo("/AddTask"))">Add Task</button>
     </div>
 
     <br />
 
     <ol class="list-group">
-        @foreach (string task in toDoList) 
+        @foreach (var task in toDoList)
         {
-            <li class="list-group-item">@task <button class="btn btn-primary btn-sm float-end" @onclick="(() => completeTask(task))">Mark as complete</button></li>
+            <li class="list-group-item">
+                @task.Name - @task.Deadline
+                <button class="btn btn-primary btn-sm float-end" @onclick="(() => completeTask(task))">Mark as complete</button>
+            </li>
         }
     </ol>
+
+    <div class="d-grid gap-2">
+        <button class="btn btn-primary" @onclick="(() => selectionSort(toDoList))">Sort Tasks</button>
+    </div>
 </div>
 
-
 <style type="text/css">
-
     .background-grad {
         background-color: #8BC6EC;
         background-image: linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%);
     }
 </style>
+
+@using FNSHR.Models
+@using FNSHR.Services
+@inject toDoService toDoService
+@inject Data.AppDbContext dbContext
+
 @code {
+    List<toDo> toDoList = new List<toDo>();
 
-    List<string> toDoList = new() { "" };
-    string newTask = "";
-
-    void addTask()
+    protected override async Task OnInitializedAsync()
     {
-
-        if (string.IsNullOrWhiteSpace(newTask) == false)
-        {
-            toDoList.Add(newTask);
-            newTask = "";
-        }
-
+        toDoList = await toDoService.GetAllToDo();
     }
 
-    void completeTask(string completedTask)
+    void completeTask(toDo completedTask)
     {
         toDoList.Remove(completedTask);
+    }
+
+    void selectionSort(List<toDo> a)
+    {
+        for (int currentIndex = 0; currentIndex < a.Count - 1; currentIndex++)
+        {
+            int smallestIndex = currentIndex;
+
+            for (int checkIndex = currentIndex + 1; checkIndex < a.Count; checkIndex++)
+            {
+                if (a[checkIndex].CompareTo(a[smallestIndex]) < 0)
+                {
+                    smallestIndex = checkIndex;
+                }
+            }
+
+            toDo temp = a[smallestIndex];
+            a[smallestIndex] = a[currentIndex];
+            a[currentIndex] = temp;
+        }
     }
 }

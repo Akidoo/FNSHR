@@ -1,4 +1,5 @@
 using FNSHR.Data;
+using FNSHR.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 
@@ -9,6 +10,8 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
 builder.Services.AddSingleton<AppDbContext>();
+builder.Services.AddSingleton<toDoService>();
+
 
 var app = builder.Build();
 
