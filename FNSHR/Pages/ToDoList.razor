@@ -102,4 +102,11 @@
             filteredToDoList = toDoList.Where(task => task.Name.Contains(searchTerm, StringComparison.OrdinalIgnoreCase)).ToList();
         }
     }
+
+    /*!toDo!
+     - Userauth
+        - DO NOT STORE PLAINTEXT PASSWORD IN DB. Use library to hash password and store the hash
+     - Try to change selection sort to merge/quicksort
+     -Try to implement fuzzy search
+     */
 }
