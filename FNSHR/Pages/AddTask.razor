@@ -21,6 +21,7 @@
     <br />
     <label>Deadline</label>
     <InputText @bind-Value="newTask.Deadline" />
+   
     <ValidationMessage For="@(()=> newTask.Deadline)" />
     <br />
     <br />
@@ -68,6 +69,14 @@
     {
         saved = false;
         error = false;
+
+        // Validate the deadline date
+        if (!isValidDate(newTask.Deadline))
+        {
+            error = true;
+            return;
+        }
+
         try
         {
             dbContext.Tasks.Add(newTask);
@@ -80,5 +89,13 @@
             throw;
         }
     }
+
+    public static bool isValidDate(string date)
+    {
+        DateTime tempObject;
+        return DateTime.TryParse(date, out tempObject);
+    }
+
+    
 
 }

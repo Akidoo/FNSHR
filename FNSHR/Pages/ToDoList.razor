@@ -101,14 +101,14 @@
             mergeSort(a, mid+1, right);
 
 
-            Merge(a, mid, left, right);
+            Merge(a, left, mid, right);
         }
     }
 
     void Merge(List<toDo> a, int left, int mid, int right)
     {
         int n1 = mid - left + 1;
-        int n2 = right - mid;
+        int n2 = right - mid;  // Potential issue: Ensure n2 is always non-negative
 
         List<toDo> leftList = new List<toDo>(a.GetRange(left, n1));
         List<toDo> rightList = new List<toDo>(a.GetRange(mid + 1, n2));
@@ -128,8 +128,14 @@
             {
                 a[k] = rightList[j];
                 j++;
-
             }
+            k++;
+        }
+
+        while (i < n1)
+        {
+            a[k] = leftList[i];
+            i++;
             k++;
         }
 
@@ -140,6 +146,7 @@
             k++;
         }
     }
+
 
     void updateFilteredTasks(string searchTerm)
     {

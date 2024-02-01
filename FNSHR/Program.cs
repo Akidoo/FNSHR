@@ -11,15 +11,15 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 
-var cs = builder.Configuration.GetConnectionString("Default");
-builder.Services.AddDbContext<dataContext>(options => options.UseSqlServer(cs));
+//var cs = builder.Configuration.GetConnectionString("Default");
+//builder.Services.AddDbContext<dataContext>(options => options.UseSqlServer(cs));
 
-builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
-{
-    options.Password.RequireDigit = false;
-    options.Password.RequiredLength = 5;
-    options.Password.RequireLowercase = false;
-});
+//builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
+//{
+  //  options.Password.RequireDigit = false;
+    //options.Password.RequiredLength = 5;
+    //options.Password.RequireLowercase = false;
+//});
 
 builder.Services.AddSingleton<WeatherForecastService>();
 builder.Services.AddSingleton<AppDbContext>();
