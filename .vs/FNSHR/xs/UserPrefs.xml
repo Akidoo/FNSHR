@@ -1,0 +1,29 @@
+﻿<Properties StartupConfiguration="{40E5172D-3002-493D-BE1E-9438260B454A}|Default">
+  <MultiItemStartupConfigurations />
+  <Debugger.DebugSourceFolders />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.Workbench ActiveDocument="FNSHR/Pages/ToDoList.razor">
+    <Files>
+      <File FileName="FNSHR/Pages/FetchData.razor" />
+      <File FileName="FNSHR/Pages/ToDoList.razor" Line="108" Column="48" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="FNSHR">
+            <Node name="FNSHR">
+              <Node name="Pages" expanded="True">
+                <Node name="ToDoList.razor" selected="True" />
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.ItemProperties.FNSHR PreferredExecutionTarget="/Applications/Google Chrome.app" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+</Properties>

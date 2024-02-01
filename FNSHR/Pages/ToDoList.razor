@@ -24,7 +24,7 @@
     </ol>
 
     <div class="d-grid gap-2 text-center">
-        <button class="btn btn-primary" @onclick="(() => selectionSort(toDoList))">Sort Tasks</button>
+        <button class="btn btn-primary" @onclick="(() => mergeSort(toDoList, 0, toDoList.Count - 1))">Sort Tasks</button>
        
     </div>
    
@@ -71,7 +71,7 @@
         toDoList.Remove(completedTask);
     }
 
-    void selectionSort(List<toDo> a)
+    /* void selectionSort(List<toDo> a)
     {
         for (int currentIndex = 0; currentIndex < a.Count - 1; currentIndex++)
         {
@@ -89,6 +89,56 @@
             a[smallestIndex] = a[currentIndex];
             a[currentIndex] = temp;
         }
+    } */
+
+    void mergeSort(List<toDo> a, int left, int right)
+    {
+        if(left < right)
+        {
+            int mid = (left + right) / 2;
+
+            mergeSort(a, left, mid);
+            mergeSort(a, mid+1, right);
+
+
+            Merge(a, mid, left, right);
+        }
+    }
+
+    void Merge(List<toDo> a, int left, int mid, int right)
+    {
+        int n1 = mid - left + 1;
+        int n2 = right - mid;
+
+        List<toDo> leftList = new List<toDo>(a.GetRange(left, n1));
+        List<toDo> rightList = new List<toDo>(a.GetRange(mid + 1, n2));
+
+        int i = 0;
+        int j = 0;
+        int k = left;
+
+        while (i < n1 && j < n2)
+        {
+            if (String.Compare(leftList[i].Name, rightList[j].Name) <= 0)
+            {
+                a[k] = leftList[i];
+                i++;
+            }
+            else
+            {
+                a[k] = rightList[j];
+                j++;
+
+            }
+            k++;
+        }
+
+        while (j < n2)
+        {
+            a[k] = rightList[j];
+            j++;
+            k++;
+        }
     }
 
     void updateFilteredTasks(string searchTerm)
@@ -103,10 +153,10 @@
         }
     }
 
-    /*!toDo!
+    /*!To Do!
      - Userauth
         - DO NOT STORE PLAINTEXT PASSWORD IN DB. Use library to hash password and store the hash
-     - Try to change selection sort to merge/quicksort
+     - Try to change selection sort to merge/quicksort (merge sort successful)
      -Try to implement fuzzy search
      */
 }
